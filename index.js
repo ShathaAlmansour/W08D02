@@ -14,7 +14,7 @@ const userRouter = require("./routers/routes/user");
 app.use(roleRouter)
 app.use(userRouter);
 
-const PORT = process.env.PORT || 4600;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`server running at port ${PORT}`);
 });
