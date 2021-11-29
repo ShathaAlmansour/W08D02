@@ -1,10 +1,8 @@
-const express = require("express")
-const dotenv = require("dotenv")
-const app = express()
-dotenv.config()
-const PORT = process.env.PORT
-app.use(express.json());
+const express = require("express");
+require("dotenv").config();
+const cors = require("cors");
+require("./db");
+const app = express();
 
-app.listen(PORT, () => {
-    console.log(`server is running on port ${PORT}`);
-  });
+app.use(express.json());
+app.use(cors());
