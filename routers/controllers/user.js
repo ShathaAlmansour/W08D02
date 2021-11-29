@@ -37,7 +37,7 @@ const login = (req, res) => {
           };
 
           const options = {
-            expiresIn: 60 * 60,
+            expiresIn: "60m",
           };
 
           const token = await jwt.sign(payload, SECRET_KEY, options);
