@@ -1,9 +1,11 @@
-const express = require("express")
-const {createRole,allRoles} = require("../controllers/role");
+const express = require("express");
+const { createRole, roles } = require("./../controllers/role");
 
 const roleRouter = express.Router();
 
-roleRouter.post("/createRole", createRole);
-roleRouter.get("/allRoles", allRoles);
+
+roleRouter.post("/createrole", createRole);
+roleRouter.get("/roles", roles);
+
 
 module.exports = roleRouter;
