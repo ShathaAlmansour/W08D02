@@ -1,6 +1,7 @@
 const userModel = require("./../../db/models/user");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const register = async (req, res) => {
   const { email, password, role } = req.body;
@@ -26,22 +27,15 @@ const register = async (req, res) => {
 
 const login = (req, res) => {
   const { email, password } = req.body;
-  const SECRET_KEY = process.env.SECRET_KEY;
+  const SECRET_KEY = process.env.SECRET;
+  const savedEmail = email.toLowerCase();
+
   userModel
-    .findOne({ email })
+    .findOne({ email: savedEmail })
     .then(async (result) => {
       if (result) {
-        if (email === result.email) {
-          const payload = {
-            role: result.role,
-          };
+        if (email == result.email) {
 
-          const options = {
-            expiresIn: "60m",
-          };
-
-          const token = await jwt.sign(payload, SECRET_KEY, options);
-          console.log(token);
 
           const unhashPassword = await bcrypt.compare(
             password,
@@ -49,6 +43,14 @@ const login = (req, res) => {
           );
 
           if (unhashPassword) {
+            const payload = {
+              role: result.role,
+            };
+            const options = {
+              expiresIn: "60m",
+            };
+            const token = await jwt.sign(payload, SECRET_KEY, options);
+
             res.status(200).json(result);
           } else {
             res.status(400).json("invalid email or password");
