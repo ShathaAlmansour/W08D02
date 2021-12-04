@@ -6,10 +6,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-mongoose.connect(`${process.env.DB}`, options, () => {
-  try {
-    console.log("DB Can Use");
-  } catch (error) {
-    console.error(error);
-  }
-});
+mongoose
+  .connect(process.env.DB, options)
+  .then(() => console.log("Can use DB"))
+  .catch((err) => console.log(err));

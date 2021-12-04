@@ -1,21 +1,21 @@
 const express = require("express");
-require("dotenv").config();
 const cors = require("cors");
+const morgan = require("morgan");
+require("dotenv").config();
 require("./db");
+
+const rolesRouter = require("./routers/routes/role");
+const usersRouter = require("./routers/routes/user");
+
 const app = express();
-
 app.use(express.json());
-
-
-const roleRouter = require("./routers/routes/role");
-const userRouter = require("./routers/routes/user");
-
-app.use(roleRouter);
-app.use(userRouter);
-
-const PORT = process.env.PORT || 4000;
 app.use(cors());
+app.use(morgan("dev"));
 
+app.use(rolesRouter);
+app.use(usersRouter);
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`server running at port ${PORT}`);
+  console.log(`SERVER ON ${PORT}`);
 });

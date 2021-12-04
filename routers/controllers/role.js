@@ -1,11 +1,13 @@
-const roleModel = require("./../../db/models/role");
+const rolesModel = require("../../db/models/role");
 
 const createRole = (req, res) => {
   const { role, permissions } = req.body;
-  const newRole = new roleModel({
+
+  const newRole = new rolesModel({
     role,
     permissions,
   });
+
   newRole
     .save()
     .then((result) => {
@@ -16,8 +18,8 @@ const createRole = (req, res) => {
     });
 };
 
-const roles = (req, res) => {
-  roleModel
+const getRole = (req, res) => {
+  rolesModel
     .find({})
     .then((result) => {
       res.status(200).json(result);
@@ -27,7 +29,4 @@ const roles = (req, res) => {
     });
 };
 
-module.exports = {
-  createRole,
-  roles,
-};
+module.exports = { createRole, getRole };
